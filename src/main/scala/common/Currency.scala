@@ -43,7 +43,7 @@ object Currency {
     val currency = values.find(_.code.equalsIgnoreCase(code))
     if (currency.isEmpty && !code.trim.isEmpty()) {
       val logger = Logger.getAnonymousLogger()
-      logger.log(Level.WARNING, s"cod is an invalid ISO4317 currency code. See https://www.iso.org/iso-4217-currency-codes.html")
+      logger.log(Level.WARNING, s"$code is an invalid ISO4317 currency code. See https://www.iso.org/iso-4217-currency-codes.html")
     }
     return currency
   }
