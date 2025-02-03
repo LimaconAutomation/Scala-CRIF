@@ -8,7 +8,7 @@ sealed abstract class Currency(val code: String, val symbol: String, val fullNam
   def getSymbol(): String = symbol
   def getName(): String = fullName
 
-  override def toString: String = s"$code: $fullName ($symbol)"
+  override def toString(): String = s"$code: $fullName ($symbol)"
 }
 object Currency {
   case object USD extends Currency("USD", "$", "US Dollar")
