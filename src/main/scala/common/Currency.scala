@@ -1,14 +1,7 @@
-package me.limacon.crif.common
-
-
-import java.util.logging.{Logger, Level};
+package me.limacon.crif.common;
 
 sealed abstract class Currency(val code: String, val symbol: String, val fullName: String) {
-  def getCode(): String = code
-  def getSymbol(): String = symbol
-  def getName(): String = fullName
-
-  override def toString(): String = s"$code: $fullName ($symbol)"
+  override def toString: String = s"$code: $fullName ($symbol)"
 }
 object Currency {
   case object USD extends Currency("USD", "$", "US Dollar")
@@ -39,13 +32,11 @@ object Currency {
 
   val values: List[Currency] = List(USD, EUR, GBP, JPY, CHF, CAD, AUD, NZD, CNY, HKD, SGD, KRW, INR, BRL, RUB, ZAR, MXN, SEK, NOK, DKK, THB, IDR, TRY, SAR, AED)
 
-  def fromString(code: String): Option[Currency] = {
-    val currency = values.find(_.code.equalsIgnoreCase(code))
-    if (currency.isEmpty && !code.trim.isEmpty()) {
-      val logger = Logger.getAnonymousLogger()
-      logger.log(Level.WARNING, s"$code is an invalid ISO4317 currency code. See https://www.iso.org/iso-4217-currency-codes.html")
+  def fromString(code: String): Currency = {
+    values.find(_.code.equalsIgnoreCase(code)) match{
+      case Some(currency) => return currency
+      case None => throw new IllegalArgumentException(s"Currency code $code not found")
     }
-    return currency
   }
 }
 

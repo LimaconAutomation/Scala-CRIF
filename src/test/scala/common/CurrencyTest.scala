@@ -6,14 +6,22 @@ class CurrencyTest extends AnyFunSuite{
   val invalidCodes = List("joe", "人民币", "$")
 
   test("Currency Code") {
-    validCodes.foreach(code => Currency.fromString(code) match {
-      case None => assert(false, s"$code is a valid currency code")
-      case Some(value) => println(value);
+    validCodes.foreach(code => {
+      try{
+        val _ = Currency.fromString(code)
+      }
     })
 
-    invalidCodes.foreach(code => Currency.fromString(code) match {
-      case Some(value) => assert(false, s"$code is an invalid currency code");
-      case _ => ()
+    invalidCodes.foreach(code => try {
+      var _ = Currency.fromString(code)
+    } catch {
+      case e: IllegalArgumentException => ()
+      case _ => throw new IllegalArgumentException("IllegalArgumentException expected")
+
     })
+
+  }
+  test("Currency Compare") {
+    assert(Currency.fromString("usd") == Currency.fromString("USD"))
   }
 }
