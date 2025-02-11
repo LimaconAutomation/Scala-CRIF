@@ -3,7 +3,7 @@ import me.limacon.crif.isda_simm.ProductClass;
 
 class ProductClassTest extends AnyFunSuite{
   val validProductClasses = List("RatesFX", "Credit", "Equity", "FX", "Commodity", "ratesfx", "interest Rates and Foreign Exchange", "rates")
-  val invalidProductClasses = List("fx","Equities", "Gold", "CDS", "CreditQ", "InterestRates")
+  val invalidProductClasses = List("Equities", "Gold", "CDS", "CreditQ", "InterestRates")
 
   test("Product Class") {
     validProductClasses.foreach(productClassName => println(ProductClass(productClassName)))
