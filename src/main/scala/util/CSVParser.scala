@@ -1,7 +1,7 @@
 package me.limacon.crif.util
 
 import scala.io.Source
-
+// TODO adopt spark dataframe
 object CSVParser {
   def readCSV(filePath: String) = {
     val source = Source.fromFile(filePath)
@@ -13,8 +13,6 @@ object CSVParser {
     // Validate that each row has the same number of columns as headers
     require(rows.forall(_.length == headers.length),
       "Each row must have the same number of columns as headers")
-    headers.zip(rows.transpose).toMap
+    rows.map(headers.zip(_).toMap)
   }
-
-
 }
